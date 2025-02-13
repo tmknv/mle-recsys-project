@@ -1,72 +1,23 @@
-# Подготовка виртуальной машины
+# Сервис определения рекомендаций для пользователя 
 
-## Склонируйте репозиторий
+вся логика основная тут deploy_recsys
+data/us_actions.csv - записываются данные о новых прослушанных треках пользователями 
+APP.py - приложение на FastApi, связывающее основные модули.
 
-Склонируйте репозиторий проекта:
+Iteraction_Processing.py - обработка действий пользователей 
+Recommendation_Offline.py - выдача оффлайн рекомендаций 
+Recommendation_Online.py - онлайн рекомендации 
 
-```
-git clone https://github.com/yandex-praktikum/mle-project-sprint-4-v001.git
-```
+Как сочитаю онлайн и оффлайн рекомендации ? 
 
-## Активируйте виртуальное окружение
+беру из онлайн 2 трека, остальные из оффлайн 
 
-Используйте то же самое виртуальное окружение, что и созданное для работы с уроками. Если его не существует, то его следует создать.
+Почему так? оффлайн рекомендации более точные, основанные на длительной истории (другие я подрезал)
 
-Создать новое виртуальное окружение можно командой:
-
-```
-python3 -m venv env_recsys_start
-```
-
-После его инициализации следующей командой
+как запустить ? 
 
 ```
-. env_recsys_start/bin/activate
+cd deploy_recsys
+uvicorn APP:app --host 0.0.0.0 --port 9090 --reload
+python3 test_service.py
 ```
-
-установите в него необходимые Python-пакеты следующей командой
-
-```
-pip install -r requirements.txt
-```
-
-### Скачайте файлы с данными
-
-Для начала работы понадобится три файла с данными:
-- [tracks.parquet](https://storage.yandexcloud.net/mle-data/ym/tracks.parquet)
-- [catalog_names.parquet](https://storage.yandexcloud.net/mle-data/ym/catalog_names.parquet)
-- [interactions.parquet](https://storage.yandexcloud.net/mle-data/ym/interactions.parquet)
- 
-Скачайте их в директорию локального репозитория. Для удобства вы можете воспользоваться командой wget:
-
-```
-wget https://storage.yandexcloud.net/mle-data/ym/tracks.parquet
-
-wget https://storage.yandexcloud.net/mle-data/ym/catalog_names.parquet
-
-wget https://storage.yandexcloud.net/mle-data/ym/interactions.parquet
-```
-
-## Запустите Jupyter Lab
-
-Запустите Jupyter Lab в командной строке
-
-```
-jupyter lab --ip=0.0.0.0 --no-browser
-```
-
-# Расчёт рекомендаций
-
-Код для выполнения первой части проекта находится в файле `recommendations.ipynb`. Изначально, это шаблон. Используйте его для выполнения первой части проекта.
-
-# Сервис рекомендаций
-
-Код сервиса рекомендаций находится в файле `recommendations_service.py`.
-
-<*укажите здесь необходимые шаги для запуска сервиса рекомендаций*>
-
-# Инструкции для тестирования сервиса
-
-Код для тестирования сервиса находится в файле `test_service.py`.
-
-<*укажите здесь необходимые шаги для тестирования сервиса рекомендаций*>
