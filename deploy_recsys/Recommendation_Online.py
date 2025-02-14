@@ -30,7 +30,7 @@ class RecommendationOnline:
         """
         valid_data= self.data.loc[self.data["user_id"]==user_id]
 
-        if valid_data["user_id"].tolist()==[]:
+        if valid_data["user_id"].tolist().empty():
             logger.info("No users actions")
             return {-1:None}
 
@@ -80,6 +80,7 @@ class RecommendationOnline:
             logger.info("no intersection")
             return {user_id:track_1[:len(track_1)//k] +track_2[:abs(k - len(track_1)//k)]}
         
+        logger.info("intersection found successful")
         return {user_id:intersection[:k]}
 
 

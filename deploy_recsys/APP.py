@@ -3,7 +3,7 @@ import logging
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from Recommendation_Offline import RecommendationsOffline
-from Iteraction_Processing import IteractionProcessing
+from Iteraction_Processing import InteractionProcessing
 from Recommendation_Online import RecommendationOnline
 logger = logging.getLogger("uvicorn.error")
 
@@ -17,7 +17,7 @@ async def lifespan(app: FastAPI):
     logger.info("Starting")
 
     global rec_offline, us_iteraction,rec_online
-    us_iteraction = IteractionProcessing("data/us_actions.csv")
+    us_iteraction = InteractionProcessing("data/us_actions.csv")
     rec_offline = RecommendationsOffline()
     rec_offline.load("personal",path="als_recommendations.parquet")
     rec_offline.load("default",path="top_100_popular.parquet")
@@ -28,7 +28,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="recommendations", lifespan=lifespan)
 
 @app.post("/put")
-async def us_iteraction(user_id:int,track_id:int):
+async def user_interaction(user_id:int,track_id:int):
     """
     зыписывает пользовательское взаимодействие в файл
     """

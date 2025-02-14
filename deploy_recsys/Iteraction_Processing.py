@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-class IteractionProcessing:
+class InteractionProcessing:
 
     def __init__(self,iteraction_store_path:str):
         """задает путь к файлу хранения пользовательских взаимодействий"""
@@ -27,7 +27,7 @@ class IteractionProcessing:
             self.us_iteraction.to_csv(self.file_path, mode='a', index=False, header=False)
 
 if __name__ == "__main__":
-    us_iteraction = IteractionProcessing("data/us_actions.csv")
+    us_iteraction = InteractionProcessing("data/us_actions.csv")
     us_iteraction.store(1,2)
 
         
